@@ -16,6 +16,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- 부트스트랩 end -->
+  <script>
+  	function goForm(){
+  		// 글쓰기 화면 좀 보여주세요라고 POJO로 요청
+  		location.href = "boardInsertForm.do";
+  	}
+  </script>
 </head>
 <body>
 
@@ -42,6 +48,7 @@
     	  </tr>    	  
     	  <%} %>
     	</table>
+    	<button class = "btn btn-primary btn-sm" onclick = "goForm()">글쓰기</button>
     </div>
     <div class="panel-footer">빅데이터 2차 (김성훈)</div>
   </div>

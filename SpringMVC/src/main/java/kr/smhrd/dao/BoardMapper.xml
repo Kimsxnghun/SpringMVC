@@ -5,7 +5,7 @@
 <mapper namespace="kr.smhrd.dao.BoardMapper">
  
     <select id = "boardList" resultType = "kr.smhrd.dao.BoardVO">
-	   select * from tboard   
+	   select * from tboard order by idx desc
     </select>
   
 </mapper>
