@@ -21,17 +21,18 @@
 			<property name="password" value="12345"></property>
 	</bean>	
 		
-	<!-- 히카리 CP 설정 -->
+	<!-- 히카리 CP 설정 --> <!-- DBCP를 생성 -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig"/>
 	</bean>
-		
+	
+	<!-- DBCP를 사용 --> <!-- Mapper의 메소드를 실행시킴, 실행시키기 위해 scan필요 -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource"/>
    </bean>
    
+	<!-- scan을 통해 맾퍼를 메모리에 올리려고 -->
 	<mybatis-spring:scan base-package="kr.smhrd.dao"/>
-	<!-- 맾퍼를 메모리에 올리려고 -->
 		
 </beans>

@@ -2,8 +2,9 @@
 <%@page import="kr.smhrd.dao.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%
-	List<BoardVO> list = (List<BoardVO>)request.getAttribute("list");
+	List<BoardVO> list = (List<BoardVO>)request.getAttribute("list"); // 바인딩한 것을 꺼내 사용한다
 %>
 <!DOCTYPE html>
 <html lang="en">

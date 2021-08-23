@@ -21,6 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 컨트롤러(POJO)를 스캔하는 역할 -->
 	<context:component-scan base-package="kr.smhrd.web" />
 	
 	

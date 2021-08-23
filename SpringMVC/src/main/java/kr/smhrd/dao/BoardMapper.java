@@ -8,7 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 // 새로운 방법론으로 해결 --> MyBatis (DataBase Mapping Framework) : http://mybatis.org
 // Java와 SQL을 분리시킴
 // SQL Mapper file(XML)을 만들어야함
-@Mapper // (생략가능)
+@Mapper // (생략가능) scan을 통해 @Mapper를 찾아냄
+// -> 메모리에 interface가 올라가면서 네임스페이스를 보고 xml과 연결됨 -> sql실행
 public interface BoardMapper {
 	// DB 접속?? --> Spring에서는 환경설정 파일에서 한다 (XML)
 	public List<BoardVO> boardList(); // 추상메소드  --> DAO가 interface가 됨
