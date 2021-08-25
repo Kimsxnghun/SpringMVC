@@ -1,10 +1,8 @@
-<%@page import="java.util.List"%>
 <%@page import="kr.smhrd.dao.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%
-	List<BoardVO> list = (List<BoardVO>)request.getAttribute("list"); // 바인딩한 것을 꺼내 사용한다
+			BoardVO vo = (BoardVO)request.getAttribute("vo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,44 +10,42 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 부트스트랩 사용할 때 필요한 재료들  -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <!-- 부트스트랩 end -->
-  <script>
-  	function goForm(){
-  		// 글쓰기 화면 좀 보여주세요라고 POJO로 요청
-  		location.href = "boardInsertForm.do";
-  	}
-  </script>
 </head>
 <body>
-
+ 
 <div class="container">
   <h2>Spring MVC BOARD</h2>
   <div class="panel panel-default">
-    <div class="panel-heading">BOARD LIST</div>
+    <div class="panel-heading">BOARD CONTENT</div>
     <div class="panel-body">
-    	<table class ="table table-hover table-bordered">
+    	<table class="table table-bordered table-hover">
     	  <tr>
     	    <td>번호</td>
-    	    <td>제목</td>
-    	    <td>조회수</td>
-    	    <td>작성자</td>
-    	    <td>작성일</td>
+    	    <td><%= vo.getIdx() %></td>
     	  </tr>
-    	  <% for(BoardVO vo : list){%>
     	  <tr>
-    	    <td><%= vo.getIdx()%></td>
-    	    <td><a href = "/web/boardContent.do?idx=<%= vo.getIdx()%>"><%= vo.getTitle()%></a></td>
-    	    <td><%= vo.getCount()%></td>
-    	    <td><%= vo.getWriter()%></td>
-    	    <td><%= vo.getIndate()%></td>
-    	  </tr>    	  
-    	  <%} %>
+    	    <td>제목</td>
+    	    <td><%= vo.getTitle() %></td>
+    	  </tr>
+    	  <tr>
+    	    <td>내용</td>
+    	    <td><%= vo.getContents() %></td>
+    	  </tr>
+    	  <tr>
+    	    <td>작성자</td>
+    	    <td><%= vo.getWriter() %></td>
+    	  </tr>
+    	  <tr>
+    	  	<td colspan = "2">
+    	  		<button class = "btn btn-primary btn-sm">수정</button>
+    	  		<button class = "btn btn-warning btn-sm">삭제</button>
+    	  		<button class = "btn btn-info btn-sm">목록</button>
+    	  	</td>
+    	  </tr>
     	</table>
-    	<button class = "btn btn-primary btn-sm" onclick = "goForm()">글쓰기</button>
     </div>
     <div class="panel-footer">빅데이터 2차 (김성훈)</div>
   </div>

@@ -17,34 +17,36 @@
   <div class="panel panel-default">
     <div class="panel-heading">BOARD FORM</div>
     <div class="panel-body">
-		<form class="form-horizontal" action="/action_page.php">
+		 <!-- action에 '/'를 넣으면 경로가 '8081/' 로 간다 '/' 빼고 적기! -->
+		 <!-- /web/boardInsert.do 라고 적으면 가긴함, 근데 수정 시 경로 문제발생 --> 
+		<form class="form-horizontal" action="boardInsert.do" method = "post">
 		  <div class="form-group">
-		    <label class="control-label col-sm-2">제목</label>
+		    <label class="control-label col-sm-2">제목 :</label>
 		    <div class="col-sm-10">
 		      <input type="text" class="form-control" name="title" placeholder="Enter title">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="pwd">Password:</label>
+		    <label class="control-label col-sm-2">내용 :</label>
 		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+		      <textarea rows="5" class="form-control" name="contents"></textarea>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="control-label col-sm-2">작성자 :</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="writer" placeholder="Enter writer">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-sm-10">
-		      <div class="checkbox">
-		        <label><input type="checkbox"> Remember me</label>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <button type="submit" class="btn btn-default">Submit</button>
+		      <button type="submit" class="btn btn-primary btn-sm">저장</button>
+		      <button type="reset" class="btn btn-warning btn-sm">취소</button>
 		    </div>
 		  </div>
 		</form>
 	</div>
-    <div class="panel-footer">빅데이터 2차 김성훈</div>
+    <div class="panel-footer">빅데이터 2차 (김성훈)</div>
   </div>
 </div>
 
