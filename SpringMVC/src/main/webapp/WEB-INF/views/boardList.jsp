@@ -54,8 +54,17 @@
     	    <td>${vo.indate}</td>
     	  </tr>    	  
     	  </c:forEach>
-    	  
+    	 
+    	 <!-- 
+    	 for each 구문
+    	 for (type var : iterate){
+    	 body-of-loop
+    	 } 
+    	 iterate 는 루프를 돌릴 객체이고 iterate 객체에서 한개씩 순차적으로 var에 대입되어 for문을 수행
+    	 --> 
+    	 
 <%--     	  <% for(BoardVO vo : list){%>
+    	 
     	  <tr>
     	    <td><%= vo.getIdx()%></td>
     	    <td><a href = "/web/boardContent.do?idx=<%= vo.getIdx()%>"><%= vo.getTitle()%></a></td>
