@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.smhrd.dao.BoardMapper;
@@ -41,7 +44,7 @@ public class BoardController {
 	
 	@RequestMapping("/boardInsertForm.do")
 	public String boardInsertForm() {
-		return "boardInsertForm"; //WEB-INF/views/boardInsertForm.jsp
+		return "boardInsertForm"; //WEB-INF/views/boardInsertForm.jsp ( 포워딩 )
 	}
 	
 	@RequestMapping("/boardInsert.do")
@@ -52,6 +55,9 @@ public class BoardController {
 		// 자동으로 작업하는데 전제조건이 있다 -> 파라미터와 VO의 속성명이 같아야함
 		mapper.boardInsert(vo);
 		// 저장 성공 후에는 리다이렉트를 통해 boardList.do(Controller)로 보낸다
+		// 포워딩과 차이점
+		// 리다이렉트 -> url이 바뀐다 
+		// 포워딩 -> url이 바뀌는게 아니라 서버 내부에서 요청하고 결과를 컨트롤러한테 넘겨서 컨트롤러가 응답해줌 
 		return "redirect:/boardList.do";
 	}
 	
@@ -65,6 +71,23 @@ public class BoardController {
 		return "boardContent"; //WEB-INF/views/boardContent.jsp
 	}
 	
+	// @RequestMapping("/boardUpdate.do")
+	// @RequestMapping(value="/boardUpdate.do", method=RequestMethod.POST) -> method를 사용해 보내는 방식을 명시할 수 있다
+	@PostMapping("/boardUpdate.do") // @PostMapping -> post 방식으로 RequestMapping 
+	//** 여러가지 API를 사용할 수 있는 유연성이 있어야한다 !!
+	public String boardUpdate(BoardVO vo) {
+		
+		mapper.boardUpdate(vo);		
+		return "redirect:/boardList.do"; //jsp로 가는게 아니라 다시 컨트롤러로 보내기 때문에 포워딩이 아니라 리다이렉트를 쓴다
+	}
+	
+	@GetMapping("/boardDelete.do") // @GetMapping -> get방식으로 RequestMappting
+	// delete의 경우 클라이언트가 get방식으로 요청하기 때문에 post방식으로 받으면 Error가 발생한다
+	public String boardDelete(int idx) {
+		
+		mapper.boardDelete(idx);
+		return "redirect:/boardList.do";
+	}
 }
 
 

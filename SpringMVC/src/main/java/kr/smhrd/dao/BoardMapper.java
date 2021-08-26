@@ -2,6 +2,7 @@ package kr.smhrd.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -17,8 +18,11 @@ public interface BoardMapper {
 	// Interface와 Annotation을 이용하는 방법 (xml 파일 없이) -> @Select
 	// @Select("select * from tboard order by idx desc")
 	public List<BoardVO> boardList(); // 추상메소드  --> DAO가 interface가 됨
-	
 	public void boardInsert(BoardVO vo); // 바디는 적지 않는다 -> 바디역할을 MyBatis 프레임워크가 대신 해준다
+	// 매개변수는 xml로 넘겨주는 값이다 -> BoardInsert 메소드가 Mapper.xml로 BoardVO vo를 넘겨줌
+	public BoardVO boardContent(int idx); 
+	public void boardUpdate(BoardVO vo);
 	
-	public BoardVO boardContent(int idx);
+	@Delete("delete from tboard where idx=#{idx}")
+	public void boardDelete(int idx);
 }
