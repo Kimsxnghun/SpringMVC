@@ -14,6 +14,7 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/에서 검색 -->
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -161,7 +162,7 @@
           <artifactId>mybatis</artifactId>
           <version>3.4.5</version>
       </dependency>
-      
+      <!-- JSTL은 이미 스프링에 내장 -->
       
 				       
 	</dependencies>
