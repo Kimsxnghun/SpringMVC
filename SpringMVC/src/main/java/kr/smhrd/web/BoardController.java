@@ -3,6 +3,7 @@ package kr.smhrd.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,16 @@ import kr.smhrd.dao.BoardVO;
 @Controller // @(annotation) + Controller 를 해줘야 POJO가 된다
 public class BoardController {
 	
-	@Autowired // Spring의 DI(Dependency Injection)기법
+	// @Autowired // Spring의 DI(Dependency Injection)기법
+	@Inject // @Inject를 @Autowired 대신 사용 가능
 	private BoardMapper mapper;
 	
 	@RequestMapping("/boardList.do") // Client의 요청을 받는 annotation 
 	// --> HandlerMapping class가 요청과 메소드를 연결해준다
-	public String boardList(Model model) { // 요청에 따라 실행할 메소드
+//	public String boardList(Model model) { // 요청에 따라 실행할 메소드
+	
+	public void boardList(Model model) { // 요청이름하고 jsp이름이 같으면 void를 사용해도 동작한다, 다르면 안 됨
+		
 		// Model -> 객체바인딩을 하기 위해 만든 임시 객체, 주소를 저장하는 용도 
 
 		// 데이터 베이스 연동		
@@ -33,7 +38,8 @@ public class BoardController {
 		List<BoardVO> list = mapper.boardList();
 		model.addAttribute("list", list); // 객체 바인딩
 		
-		return "boardList"; // --> /WEB-INF/views/boardList.jsp
+//		return "boardList"; // --> /WEB-INF/views/boardList.jsp
+		
 // RequestDispatcher --> forward()
 // model.addAttribute("list", list); // 객체바인딩(특정메모리에 객체를 연결하는 기술)
 		
@@ -48,7 +54,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardInsert.do")
-	public String boardInsert(BoardVO vo){
+	public String boardInsert(BoardVO vo){		
 		// 파라미터 수집 -> VO에 담는다 : 단순 반복 작업
 		// -> 스프링 프레임워크가 해준다! -> 어떻게? VO를 매개변수로 받아주면 됨
 		// -> 프레임워크가 내부에서 VO객체 생성해준다 (리플렉션:이름만 적어줘도 객체를 생성해주는 기법) **디폴트 생성자 필요!
@@ -58,7 +64,7 @@ public class BoardController {
 		// 포워딩과 차이점
 		// 리다이렉트 -> url이 바뀐다 
 		// 포워딩 -> url이 바뀌는게 아니라 서버 내부에서 요청하고 결과를 컨트롤러한테 넘겨서 컨트롤러가 응답해줌 
-		return "redirect:/boardList.do";
+		return "redirect:/boardList.do"; // redirect 일때는 리턴타입 void로 바꾸면 안됨
 	}
 	
 	@RequestMapping("/boardContent.do")

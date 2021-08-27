@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="cpath" value ="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +20,9 @@
   <div class="panel panel-default">
     <div class="panel-heading">BOARD FORM</div>
     <div class="panel-body">
-		 <!-- action에 '/'를 넣으면 경로가 '8081/' 로 간다 '/' 빼고 적기! -->
+		 <!-- action에 '/'를 넣으면 경로가 '8081/' 로 간다 '/' 빼고 적으면 된다 -->
 		 <!-- /web/boardInsert.do 라고 적으면 가긴함, 근데 수정 시 경로 문제발생 --> 
-		<form class="form-horizontal" action="boardInsert.do" method = "post">
+		<form class="form-horizontal" action="${cpath}/boardInsert.do" method = "post">
 		  <div class="form-group">
 		    <label class="control-label col-sm-2">제목 :</label>
 		    <div class="col-sm-10">

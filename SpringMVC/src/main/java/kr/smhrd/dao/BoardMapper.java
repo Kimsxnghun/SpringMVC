@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
 // -> 메모리에 interface가 올라가면서 네임스페이스를 보고 xml과 연결됨 -> sql실행
 public interface BoardMapper {
 	// DB 접속?? --> Spring에서는 환경설정 파일에서 한다 (XML)
+	// root-context.xml의 org.mybatis.spring.SqlSessionFactoryBean가 인터페이스를 사용해서 DB연동 
 	
 	// Interface와 Annotation을 이용하는 방법 (xml 파일 없이) -> @Select
 	// @Select("select * from tboard order by idx desc")
