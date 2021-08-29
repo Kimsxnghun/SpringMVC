@@ -32,6 +32,21 @@
   		// location.href = "/web/boardInsertForm.do"; // "/web(context path)/boardInsertForm.do"
   		location.href = "${cpath}/boardInsertForm.do";
   	}
+  	function loadJson(){
+  		// JS로 서버에 -> /list.do를 요청해서 JSON데이터로 응답을 받아보자
+  		// jquery : JS라이브러리, jquery이용해서 ajax구현
+  		$.ajax({
+  			url : "${cpath}/list.do",
+  			type : "get",
+  			// data : {}, 현재 넘길 데이터 없음
+  			dataType: "json",
+  			success : resultJson, // callback 함수 : 서버에 요청한 내용에 대한 응답을 받아서 처리하는 함수
+  			error : function(){ alert("error"); }			
+    	});
+  	}
+  	function resultJson(data){
+  		alert(data);
+  	}
   </script>
 </head>
 <body>
@@ -83,6 +98,8 @@
     	  </tr>    	  
     	  <%} %> --%>
     	</table>
+    	<button class = "btn btn-success btn-sm" onclick="loadJson()">JSON DATA LOAD</button>
+    	<div id="msg">여기에 JSON데이터를 출력하시오.</div>
     	<button class = "btn btn-primary btn-sm" onclick = "goForm()">글쓰기</button>
     </div>
     <div class="panel-footer">빅데이터 2차 (김성훈)</div>
