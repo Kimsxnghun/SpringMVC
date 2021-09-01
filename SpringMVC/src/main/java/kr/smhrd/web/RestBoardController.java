@@ -40,4 +40,9 @@ public class RestBoardController {
 		mapper.boardDelete(idx);
 	}
 	
+	@RequestMapping("/insert.do")
+	public void insert(BoardVO vo) {
+		mapper.boardInsert(vo);
+	}
+	
 }
