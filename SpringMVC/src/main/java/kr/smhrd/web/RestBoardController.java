@@ -34,4 +34,10 @@ public class RestBoardController {
 		// String타입이기 때문에 JSON을 받는 클라이언트는 JSON을 핸들링하는  API를 통해 해석할 수 있다
 		// 결과 보기 힘들면 JSON VIEWER 사용하면 된다~
 	}
+	
+	@RequestMapping("/delete.do")
+	public void delete(int idx){
+		mapper.boardDelete(idx);
+	}
+	
 }

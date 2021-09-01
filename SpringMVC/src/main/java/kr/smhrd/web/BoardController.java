@@ -25,6 +25,12 @@ public class BoardController {
 	@Inject // @Inject를 @Autowired 대신 사용 가능
 	private BoardMapper mapper;
 	
+	// ajax기능으로만 게시판 구현한 경우
+	@RequestMapping("/ajaxList.do")
+	public String ajax() {
+		return "ajaxList"; // ajaxList.jsp
+	}
+		
 	@RequestMapping("/boardList.do") // Client의 요청을 받는 annotation 
 	// --> HandlerMapping class가 요청과 메소드를 연결해준다
 //	public String boardList(Model model) { // 요청에 따라 실행할 메소드
