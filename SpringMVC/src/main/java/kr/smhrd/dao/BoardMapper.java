@@ -31,4 +31,7 @@ public interface BoardMapper {
 	// ajax로 업데이트
 	@Update("update tboard set title=#{title}, writer=#{writer} where idx=#{idx}")
 	public void ajaxUpdate(BoardVO vo);
+	
+	@Update("update tboard set contents=#{contents} where idx=#{idx}")
+	public void ajaxConUpdate(BoardVO vo);
 }

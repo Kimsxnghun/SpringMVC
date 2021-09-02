@@ -54,12 +54,18 @@
   		$.each(data, (index, obj)=>{ // index는 자리를 받고, obj는 json을 받는다 
   			html+="<tr>";
   	  		html+="<td id='idx"+index+"'>"+obj.idx+"</td>";
-  	  		html+="<td id='title"+index+"'>"+obj.title+"</td>";
+  	  		html+="<td id='title"+index+"'><a href='javascript:onview("+index+")'>"+obj.title+"</a></td>";
+  	  		// 눌렀을 때 서버를 이동하는 것이 아니라 javascript에서 게시물을 보여줘야함 -> <a href='javascript:onview()'>
+  	  		// div에서 보여주기 때문에 div에 id를 걸어준다 -> <div id='onview"+index+"' style='display:none'>
+  	  		// json으로 가져온 값들 중 선택하는 것이기 때문에 index를 활용한다
   	  		html+="<td>"+obj.count+"</td>";
   	  		html+="<td id='writer"+index+"'>"+obj.writer+"</td>";
   	  		html+="<td>"+obj.indate+"</td>";
   	  		html+="<td id='update"+index+"'><button class='btn btn-info btn-sm' onclick='goUpdate("+index+")'>수정</button></td>";
   	  		html+="<td><button class='btn btn-warning btn-sm' onclick='goDel("+obj.idx+")'>삭제</button></td>";
+  	  		html+="</tr>";
+  	  		html+="<tr>";
+  	  		html+="<td colspan='7'><div id='onview"+index+"' style='display:none'><textarea rows='5' class='form-control' id='contents"+index+"'>"+obj.contents+"</textarea><button class='btn btn-info btn-sm' onclick='goContent("+index+")'>내용수정</button></div></td>";
   	  		html+="</tr>";
   		})
   		html+="</table>";
@@ -67,6 +73,29 @@
   		$(".list").html(html); // text 변경	
   	}
   	
+  	// 게시물 내용 수정 메소드
+  	function goContent(index){ // 사용자가 선택한 게시물이 무엇인지 알기 위해 index값을 이용
+  		var idx =$("#idx"+index).text(); // 어떤 글을 수정할 지 고유번호로 지정 
+  		var contents =$("#contents"+index).val(); // 수정할 컨텐츠의 내용 // text()가 아닌 val()을 통해 textarea(form)안의 value값을 가져온다
+  		$.ajax({
+  			url:"${cpath}/conUpdate.do",
+  			type:"post",
+  			data:{"idx":idx, "contents":contents},
+  			success:loadJson,
+  			error:function(){alert("error");}  			
+  		});
+  	}
+  	
+  	// 게시물 눌렀을 때 게시물 내용 확인하는 메소드
+  	function onview(index){
+  		if ($("#onview"+index).css('display') == 'block') { // display값이 block인 경우
+            $("#onview"+index).slideUp(); // hide() 메소드와 같은 기능
+        } else { // display값이 block이 아닌경우
+            $("#onview"+index).slideDown(); // show() 메소드와 같은 기능
+        }
+  	}
+  	
+  	// 게시물 수정할 수 있도록 ui를 바꾸는 메소드
   	function goUpdate(index){ 
   		// 수정버튼을 눌렀을 때 버튼을 누른 글을 찾아가는 것이 관건
   		// 게시글 고유 번호도 이용할 수 있지만, json객체의 index를 이용할 수도 있다 **
@@ -93,6 +122,7 @@
   		
   	}	
   	
+  	// 수정한 게시물을 저장하는 메소드
   	function update(index){ // index로 접근
   		// '수정하기'버튼 눌렀을 때 값을 서버로 보내기 위해 input에 접근해야함 -> <input ... id='newTitle"+index+"'>
   		var idx = $('#idx'+index).text(); // 어떤 글을 수정할 것인지 알기 위해 고유번호 보내줘야함
@@ -118,6 +148,7 @@
   		});	
   	}
   	
+  	// 게시물을 작성할 수 있는 ui를 보여주는 메소드
   	function goWrite(){
   		// css속성 변경
   		$(".list").css("display","none"); // 글쓰기 할 때는 글 목록을 지워준다
@@ -126,6 +157,7 @@
   		$("#reset").trigger("click"); // trigger("이벤트") -> 이벤트를 발생 시킴
   	} 	
   	
+  	// 수정한 게시물을 저장하는 메소드
   	function goInsert(){
   		var frmData = $("#frm").serialize(); // serialize() -> form에 있는 parameter 한 번에 가져와서 직렬화 (get방식)
   		// alert(frmData);

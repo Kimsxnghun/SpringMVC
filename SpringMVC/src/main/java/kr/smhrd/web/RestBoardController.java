@@ -50,4 +50,8 @@ public class RestBoardController {
 		mapper.ajaxUpdate(vo);
 	}
 	
+	@RequestMapping("/conUpdate.do")
+	public void conUpdate(BoardVO vo) {
+		mapper.ajaxConUpdate(vo);
+	}
 }
