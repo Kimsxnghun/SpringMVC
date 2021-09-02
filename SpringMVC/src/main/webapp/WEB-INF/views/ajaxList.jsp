@@ -53,12 +53,12 @@
 
   		$.each(data, (index, obj)=>{ // index는 자리를 받고, obj는 json을 받는다 
   			html+="<tr>";
-  	  		html+="<td>"+obj.idx+"</td>";
+  	  		html+="<td id='idx"+index+"'>"+obj.idx+"</td>";
   	  		html+="<td id='title"+index+"'>"+obj.title+"</td>";
   	  		html+="<td>"+obj.count+"</td>";
   	  		html+="<td id='writer"+index+"'>"+obj.writer+"</td>";
   	  		html+="<td>"+obj.indate+"</td>";
-  	  		html+="<td><button class='btn btn-info btn-sm' onclick='goUpdate("+index+")'>수정</button></td>";
+  	  		html+="<td id='update"+index+"'><button class='btn btn-info btn-sm' onclick='goUpdate("+index+")'>수정</button></td>";
   	  		html+="<td><button class='btn btn-warning btn-sm' onclick='goDel("+obj.idx+")'>삭제</button></td>";
   	  		html+="</tr>";
   		})
@@ -76,11 +76,37 @@
   		// index를 id값에 넣는 방법을 활용해서 해결! -> "<td id='title"+index+"'>"
   		
   		var title=$("#title"+index).text();
-  		var writer=$("#writer"+index).text();
+  		var writer=$("#writer"+index).text();		
+  		// alert(title + writer);
   		
-  		alert(title + writer);
+  		var newTitle = "<input type='text' value='"+title+"' class='form-control' id='newTitle"+index+"'>"
+  		//value를 설정해 기존 값을 유지
+  		$("#title"+index).html(newTitle); // 수정하기 눌렀을 때 textbox로 바꿔준다
+  		var newWriter = "<input type='text' value='"+writer+"' class='form-control' id='newWriter"+index+"'>"
+  		$("#writer"+index).html(newWriter);
+  		
+  		// '수정'버튼 눌렀을 때 버튼을 '수정하기'버튼으로 바꿔준다
+  		// '수정하기'버튼 눌렀을 때 수정된 값을 서버로 보낼 수 있도록 이벤트 설정해준다 -> onclick='update()'
+  		var newBtn = "<button class='btn btn-success btn-sm' onclick='update("+index+")'>수정하기</button>"
+  		// td에 접근하기 위해 name을 설정해줘야함 -> "<td id='update"+index+"'>
+  		$('#update'+index).html(newBtn);
   		
   	}	
+  	
+  	function update(index){ // index로 접근
+  		// '수정하기'버튼 눌렀을 때 값을 서버로 보내기 위해 input에 접근해야함 -> <input ... id='newTitle"+index+"'>
+  		var idx = $('#idx'+index).text(); // 어떤 글을 수정할 것인지 알기 위해 고유번호 보내줘야함
+  		var title = $('#newTitle'+index).val(); // text()는 태그와 태그 사이에 있는 문자를 가져오기 때문에 input에 적은 값은 못 가져온다
+  		var writer = $('#newWriter'+index).val(); // val()을 통해 input에 적은 value값을 보내줘야함
+  		// ajax로 서버에 보내준다
+  		$.ajax({
+  			url:"${cpath}/update.do",
+  			type:"post",
+  			data:{"title":title, "writer":writer, "idx":idx}, // 기존에 쓰던 update랑 조금 다르다!
+  			success:loadJson,
+  			error:function(){alert("error");}
+  		});
+  	}
   	
   	function goDel(idx){
   		$.ajax({

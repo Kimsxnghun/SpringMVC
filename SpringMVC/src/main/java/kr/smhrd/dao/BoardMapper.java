@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 // JDBC(java+9+SQL) 1.유지보수가 어렵다  2.생산성이 떨어진다 (개발속도가 느리다 -> 개발자가 코딩을 모두 해야한다)
 // 새로운 방법론으로 해결 --> MyBatis (DataBase Mapping Framework) : http://mybatis.org
@@ -26,4 +27,8 @@ public interface BoardMapper {
 	
 	@Delete("delete from tboard where idx=#{idx}")
 	public void boardDelete(int idx);
+	
+	// ajax로 업데이트
+	@Update("update tboard set title=#{title}, writer=#{writer} where idx=#{idx}")
+	public void ajaxUpdate(BoardVO vo);
 }

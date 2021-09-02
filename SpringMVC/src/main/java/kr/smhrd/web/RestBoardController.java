@@ -45,4 +45,9 @@ public class RestBoardController {
 		mapper.boardInsert(vo);
 	}
 	
+	@RequestMapping("/update.do")
+	public void update(BoardVO vo) { // ajax를 통해 title과 writer가 넘어옴
+		mapper.ajaxUpdate(vo);
+	}
+	
 }
