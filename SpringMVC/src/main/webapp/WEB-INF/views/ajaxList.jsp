@@ -47,16 +47,18 @@
   		html+="<td>조회수</td>";
   		html+="<td>작성자</td>";
   		html+="<td>작성일</td>";
+  		html+="<td>수정</td>";  		
   		html+="<td>삭제</td>";  		
   		html+="</tr>";
 
   		$.each(data, (index, obj)=>{ // index는 자리를 받고, obj는 json을 받는다 
   			html+="<tr>";
   	  		html+="<td>"+obj.idx+"</td>";
-  	  		html+="<td>"+obj.title+"</td>";
+  	  		html+="<td id='title"+index+"'>"+obj.title+"</td>";
   	  		html+="<td>"+obj.count+"</td>";
-  	  		html+="<td>"+obj.writer+"</td>";
+  	  		html+="<td id='writer"+index+"'>"+obj.writer+"</td>";
   	  		html+="<td>"+obj.indate+"</td>";
+  	  		html+="<td><button class='btn btn-info btn-sm' onclick='goUpdate("+index+")'>수정</button></td>";
   	  		html+="<td><button class='btn btn-warning btn-sm' onclick='goDel("+obj.idx+")'>삭제</button></td>";
   	  		html+="</tr>";
   		})
@@ -64,6 +66,21 @@
 
   		$(".list").html(html); // text 변경	
   	}
+  	
+  	function goUpdate(index){ 
+  		// 수정버튼을 눌렀을 때 버튼을 누른 글을 찾아가는 것이 관건
+  		// 게시글 고유 번호도 이용할 수 있지만, json객체의 index를 이용할 수도 있다 **
+  		
+  		// title과 writer에 id로 접근해보자 
+  		// "<td id='title'>" -> 문제점 : 반복문으로 출력하기 때문에 id가 중복된다
+  		// index를 id값에 넣는 방법을 활용해서 해결! -> "<td id='title"+index+"'>"
+  		
+  		var title=$("#title"+index).text();
+  		var writer=$("#writer"+index).text();
+  		
+  		alert(title + writer);
+  		
+  	}	
   	
   	function goDel(idx){
   		$.ajax({
@@ -81,7 +98,7 @@
   		$(".write").css("display","block");
   		// 글 쓴 후 문제점 ! 글을 쓴 후 다시 글쓰기를 누르면 이전에 썼던 글이 남아있다
   		$("#reset").trigger("click"); // trigger("이벤트") -> 이벤트를 발생 시킴
-  	}
+  	} 	
   	
   	function goInsert(){
   		var frmData = $("#frm").serialize(); // serialize() -> form에 있는 parameter 한 번에 가져와서 직렬화 (get방식)
