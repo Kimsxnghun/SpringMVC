@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- 컨트롤러(POJO)를 스캔하는 역할 -->
+	<!-- 컨트롤러(POJO)를 스캔해서 스프링 컨테이너에 올려주는 역할 -->
 	<context:component-scan base-package="kr.smhrd.web" />
 	
 	

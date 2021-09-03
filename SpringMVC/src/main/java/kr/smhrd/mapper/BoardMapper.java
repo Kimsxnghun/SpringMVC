@@ -1,4 +1,4 @@
-package kr.smhrd.dao;
+package kr.smhrd.mapper;
 
 import java.util.List;
 

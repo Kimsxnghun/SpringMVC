@@ -2,26 +2,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.smhrd.dao.BoardMapper"> <!-- 네임스페이스를 통해 Mapper와 연결됨 -->
+<mapper namespace="kr.smhrd.mapper.BoardMapper"> <!-- 네임스페이스를 통해 Mapper와 연결됨 -->
  
-    <select id = "boardList" resultType = "kr.smhrd.dao.BoardVO">
+    <select id = "boardList" resultType = "kr.smhrd.mapper.BoardVO">
     	<!-- resultType : 메소드로 보내주는 값의 타입 -->
 	    select * from tboard order by idx desc
     </select>
   
-    <insert id = "boardInsert" parameterType = "kr.smhrd.dao.BoardVO" >  
+    <insert id = "boardInsert" parameterType = "kr.smhrd.mapper.BoardVO" >  
         <!-- id = "메소드이름"  --> <!-- ParameterType = "메소드에서 받아오는 값의 타입" -->
         insert into tboard(title, contents, writer)
-		values (#{title},#{contents},#{writer})
-        
+		values (#{title},#{contents},#{writer})       
     </insert>
     
-    <select id = "boardContent" parameterType="int" resultType = "kr.smhrd.dao.BoardVO">
+    <select id = "boardContent" parameterType="int" resultType = "kr.smhrd.mapper.BoardVO">
         <!-- 파라미터가 한 개인 경우 파라미터 타입을 걸 필요가 없다. 적어도 상관은 없음 -->
     	select * from tboard where idx=#{idx}
     </select>
     
-    <update id = "boardUpdate" parameterType = "kr.smhrd.dao.BoardVO">
+    <update id = "boardUpdate" parameterType = "kr.smhrd.mapper.BoardVO">
         update tboard 
         set title=#{title}, contents=#{contents} 
         where idx=#{idx}

@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.smhrd.dao.BoardMapper;
-import kr.smhrd.dao.BoardVO;
+import kr.smhrd.mapper.BoardMapper;
+import kr.smhrd.mapper.BoardVO;
 
 // @Controller -> @RestController로 변경
 @RestController // RestController : JSON dataformat으로 응답할 때 사용 -> OPEN API(URL로 요청 -> 서버가 데이터 제공 : XML,JSON)

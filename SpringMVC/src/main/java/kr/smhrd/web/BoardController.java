@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.smhrd.dao.BoardMapper;
-import kr.smhrd.dao.BoardVO;
+import kr.smhrd.mapper.BoardMapper;
+import kr.smhrd.mapper.BoardVO;
 
 @Controller // @(annotation) + Controller 를 해줘야 POJO가 된다
 public class BoardController {
@@ -24,6 +25,13 @@ public class BoardController {
 	// @Autowired // Spring의 DI(Dependency Injection)기법
 	@Inject // @Inject를 @Autowired 대신 사용 가능
 	private BoardMapper mapper;
+	
+	// Json요청을 그냥 Controller에서 해보자
+	@RequestMapping("/getjson.do")
+	public @ResponseBody List<BoardVO> getjson() { // @ResponseBody -> @Controller도 @RestController처럼 json데이터 보낼 수 있게 해줌
+		List<BoardVO> list = mapper.boardList();
+		return list; // list(Object) -> JSON(Spring)으로 변환시켜서 클라이언트에게 응답
+	}
 	
 	// ajax기능으로만 게시판 구현한 경우
 	@RequestMapping("/ajaxList.do")

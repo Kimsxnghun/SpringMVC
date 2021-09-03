@@ -33,6 +33,6 @@
    </bean>
    
 	<!-- scan을 통해 맾퍼를 메모리에 올리려고 -->
-	<mybatis-spring:scan base-package="kr.smhrd.dao"/>
+	<mybatis-spring:scan base-package="kr.smhrd.mapper"/>
 		
 </beans>

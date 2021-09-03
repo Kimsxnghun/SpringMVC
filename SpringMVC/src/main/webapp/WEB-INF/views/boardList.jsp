@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="kr.smhrd.dao.BoardVO"%>
+<%@page import="kr.smhrd.mapper.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,10 +8,10 @@
 	List<BoardVO> list = (List<BoardVO>)request.getAttribute("list"); // 바인딩한 것을 꺼내 사용한다
 %> --%>
 <!-- EL을 사용해서 스크립트릿 사용 X -->
-<% 
+<%-- <% 
 	String cpath = request.getContextPath(); // context path를 가져옴 
 	// 근데 EL문법으로도 가져올 수가 있다
-%>
+%> --%>
 <!-- JSTL에서 변수 선언 방법 <c:set var="변수명" value="변수값"/> -->
 <c:set var="cpath" value ="${pageContext.request.contextPath}"/>
 
@@ -26,7 +26,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- 부트스트랩 end -->
-  <script>
+  <script type ="text/javascript">
+	
   	function goForm(){
   		// 글쓰기 화면 좀 보여주세요라고 POJO로 요청
   		// location.href = "/web/boardInsertForm.do"; // "/web(context path)/boardInsertForm.do"
@@ -40,7 +41,7 @@
   			url : "${cpath}/list.do", //서버에 요청
   			type : "get",
   			// data : {}, 현재 넘길 데이터 없음
-  			dataType: "json",
+  			dataType: "json", // 받아올 데이터 타입
   			success : resultJson, // callback 함수 : 서버에 요청한 내용에 대한 응답을 받아서 처리하는 함수
   			error : function(){ alert("error"); }			
     	});
@@ -57,15 +58,21 @@
   		html+="<td>조회수</td>";
   		html+="<td>작성자</td>";
   		html+="<td>작성일</td>";
+  		html+="<td>삭제</td>";  		
   		html+="</tr>";
   			// $.each(데이터, 데이터에서 꺼내서 처리할 함수)
-  		$.each(data, function(index, obj){ // index는 자리를 받고, obj는 json을 받는다		
+  		// $.each(data, function(index, obj){ // index는 자리를 받고, obj는 json을 받는다
+  						// 익명함수 : 이름이 없는 함수 
+  						// (매개변수) => {실행내용} : 함수형 프로그램 (람다식)
+  						// '>' 의 빨간줄은 이클립스 자체오류, 무시하면됨
+  		$.each(data, (index, obj)=>{ // index는 자리를 받고, obj는 json을 받는다 
   			html+="<tr>";
   	  		html+="<td>"+obj.idx+"</td>";
   	  		html+="<td>"+obj.title+"</td>";
   	  		html+="<td>"+obj.count+"</td>";
   	  		html+="<td>"+obj.writer+"</td>";
   	  		html+="<td>"+obj.indate+"</td>";
+  	  		html+="<td><button class='btn btn-warning btn-sm' onclick='goDel("+obj.idx+")'>삭제</button></td>";
   	  		html+="</tr>";
   		})
   		html+="</table>";
@@ -75,6 +82,18 @@
 	  	// 문법 -> $("식별자").메소드();
   		$("#msg").html(html);
   		
+  	}
+  		
+  	function goDel(idx){
+  		// ajax() -> delete.do
+  		$.ajax({
+  			url : "${cpath}/delete.do",
+  			type : "get",
+  			data : {"idx":idx}, // key:value
+  			success : loadJson,
+  			error : function(){ alert("error"); }
+  		
+  		});	
   	}
   </script>
 </head>
