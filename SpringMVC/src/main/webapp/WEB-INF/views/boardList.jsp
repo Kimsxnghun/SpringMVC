@@ -14,6 +14,8 @@
 %> --%>
 <!-- JSTL에서 변수 선언 방법 <c:set var="변수명" value="변수값"/> -->
 <c:set var="cpath" value ="${pageContext.request.contextPath}"/>
+<!-- EL문법 으로 context-root가져오기 -> ${pageContext.request.contextPath} = '/root' -->
+<!-- 이제 cpath로 root경로를 설정해두면 context-root값이 바뀌어도 저절로 찾아갈 수 있게된다 -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +62,8 @@
   		html+="<td>작성일</td>";
   		html+="<td>삭제</td>";  		
   		html+="</tr>";
+  		
+  			// jQuery
   			// $.each(데이터, 데이터에서 꺼내서 처리할 함수)
   		// $.each(data, function(index, obj){ // index는 자리를 받고, obj는 json을 받는다
   						// 익명함수 : 이름이 없는 함수 
