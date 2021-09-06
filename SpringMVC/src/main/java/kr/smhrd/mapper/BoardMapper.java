@@ -34,4 +34,8 @@ public interface BoardMapper {
 	
 	@Update("update tboard set contents=#{contents} where idx=#{idx}")
 	public void ajaxConUpdate(BoardVO vo);
+	
+	// 조회수 증가 
+	@Update("update tboard set count=count+1 where idx=#{idx}")
+	public void count(int idx);
 }
