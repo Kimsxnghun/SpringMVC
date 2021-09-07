@@ -28,7 +28,9 @@ public class BoardController {
 	
 	// Json요청을 그냥 Controller에서 해보자
 	@RequestMapping("/getjson.do")
-	public @ResponseBody List<BoardVO> getjson() { // @ResponseBody -> @Controller도 @RestController처럼 json데이터 보낼 수 있게 해줌
+	public @ResponseBody List<BoardVO> getjson() { 
+		// @ResponseBody -> @Controller도 @RestController처럼 json데이터 보낼 수 있게 해줌
+		// 이렇게 하면 RestController를 따로 만들지 않아도 된다
 		List<BoardVO> list = mapper.boardList();
 		return list; // list(Object) -> JSON(Spring)으로 변환시켜서 클라이언트에게 응답
 	}
@@ -81,12 +83,15 @@ public class BoardController {
 		return "redirect:/boardList.do"; // redirect 일때는 리턴타입 void로 바꾸면 안됨
 	}
 	
+	// 게시판 상세보기
 	@RequestMapping("/boardContent.do")
 							// int라고 명시해놓으면 스프링이 알아서 파라미터를 인트형으로 바꿔줌, 같은 이름으로 받아주는게 좋다
 	public String boardContent(/*@RequestParam("idx") 쓰면 이름 바꿔서 받을 수 있다*/ int idx, Model model){
 		
 		BoardVO vo = mapper.boardContent(idx);
 		model.addAttribute("vo",vo); // 객체바인딩
+		mapper.count(idx); // 조회수 누적 -> 게시물 상세보기 누를 때 마다 1씩 증가
+		// 만약 여기 로직이 필요하면 -> Service Tier(로직을 처리해주는 별도의 클래스)에 만든다!
 		
 		return "boardContent"; //WEB-INF/views/boardContent.jsp
 	}
