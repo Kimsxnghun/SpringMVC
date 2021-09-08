@@ -164,7 +164,7 @@
       </dependency>
       <!-- JSTL은 이미 스프링에 내장 -->
       
-      <!-- JSON리턴 API -->
+      <!-- FC에 JSP가 아니라 JSON 데이터를 그대로 리턴시키는 API -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
